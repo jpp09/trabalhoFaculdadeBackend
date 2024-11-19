@@ -1,5 +1,6 @@
 from flask import Flask,redirect,request
-import requests,datetime
+import requests
+
 
 url = "https://advanced-movie-search.p.rapidapi.com/search/movie"
 
