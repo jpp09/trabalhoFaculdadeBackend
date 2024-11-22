@@ -17,5 +17,3 @@ def login():
 
     return ''
     
-app.run(debug=True)
-    
