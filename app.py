@@ -19,5 +19,3 @@ def home():
 
     return jsonify(response.json())
 
-@app.route('/login')
-
