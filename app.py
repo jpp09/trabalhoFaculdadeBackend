@@ -15,5 +15,5 @@ def home():
 
     response = requests.get(url, headers=headers)
 
-    return response.json()
+    return jsonify(response.json())
 
