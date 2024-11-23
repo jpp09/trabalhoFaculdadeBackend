@@ -3,7 +3,7 @@ from flask_cors import CORS
 import requests
 
 app = Flask(__name__)
-CORS(app,origins=['https://jpp09.github.io/trabalhoFaculdade/'])
+CORS(app,origins=['https://jpp09.github.io'])
 
 @app.route('/home')
 def home():
@@ -18,3 +18,6 @@ def home():
     response = requests.get(url, headers=headers)
 
     return jsonify(response.json())
+
+@app.route('/login')
+
