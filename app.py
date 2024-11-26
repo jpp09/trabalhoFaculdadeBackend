@@ -41,7 +41,7 @@ def cadastro():
         id_gerador = f'{random.randint(0,100)}{random.randint(0,100)}'
     else:
         cadastro_pessoas['id'].append(id_gerador)
-    return jsonify({'mensagem':f'O cadastro do {response['nome']} foi realizado com sucesso'})
+    return jsonify({'mensagem':f'O cadastro do {response["nome"]} foi realizado com sucesso'})
 
 
 @app.route('/login',methods=['POST'])
