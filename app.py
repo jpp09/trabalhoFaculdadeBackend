@@ -66,4 +66,3 @@ def login():
 def add():
     pass
 
-app.run(debug=True)
