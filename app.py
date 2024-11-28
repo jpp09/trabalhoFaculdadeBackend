@@ -62,7 +62,17 @@ def login():
 
  
 
-@app.route('/add',methods=['POST',])
+@app.route('/conteudo')
 def add():
-    pass
+    url = "https://api.themoviedb.org/3/trending/movie/day?language=en-US"
+
+    headers = {
+        "accept": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmODZmNmQ2YzZkNTVhODJiNmY5MmU4NWE0ODc0MTljYyIsIm5iZiI6MTczMjc1Nzk5NS43NDA1MTIsInN1YiI6IjY3MmU5M2U4N2ZkNzI0MzQyYTkwMDNhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.K5n_n3wR4GdP2ZEbXkKfd4C5H_YQ8akZl7TTuG3HGoo"
+    }
+
+    response = requests.get(url,headers=headers)
+    return jsonify(response.json())
+
+
 
