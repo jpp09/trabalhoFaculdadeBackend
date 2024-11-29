@@ -3,8 +3,8 @@ from flask_cors import CORS
 import requests,random
 
 app = Flask(__name__)
-'''CORS(app,origins=['https://jpp09.github.io'])'''
-CORS(app)
+CORS(app,origins=['https://jpp09.github.io'])
+
 
 cadastro_pessoas = {
     'nome' : [],
@@ -14,6 +14,11 @@ cadastro_pessoas = {
     'senha':[]
 }
 
+logado = {
+    'user' : ''
+}
+
+app.secret_key = 'entretenimentos'
 @app.route('/home')
 def home():
 
@@ -50,14 +55,16 @@ def login():
     response = request.get_json()
     usuario = response['user']
     senha = response['password']
+    logado['user'] = session['usuario_logado'] = response ['user']
     if usuario in cadastro_pessoas['usuario']:
         index = cadastro_pessoas['usuario'].index(usuario)
         if senha == cadastro_pessoas['senha'][index]:
-            return jsonify({'mensagem' : 'Login realizado com sucesso'})
+            return jsonify({'mensagem' : 'Login realizado com sucesso',
+            'log':f'{logado['user']}', 'link':'https://jpp09.github.io/trabalhoFaculdade/'})
         else: 
-            return jsonify({'mensagem': 'Senha incorreta'})
+            return jsonify({'mensagem': 'Senha incorreta', 'link':'https://jpp09.github.io/trabalhoFaculdade/login.html'})
     else:
-        return jsonify({'mensagem': 'Usuário não detectado'})
+        return jsonify({'mensagem': 'Usuário não detectado', 'link':'https://jpp09.github.io/trabalhoFaculdade/register.html'})
         
 
  
@@ -72,6 +79,31 @@ def add():
     }
 
     response = requests.get(url,headers=headers)
+    return jsonify(response.json())
+
+
+@app.route('/sessao')
+def sessao():
+    return jsonify(logado['user'])
+
+
+@app.route('/deslogar')
+def deslogar():
+    usuário = logado['user']
+    logado['user'] = ''
+    return jsonify({'mensagem': f'O usuário: {usuário} foi deslogado com sucesso'})
+
+@app.route('/imagens')
+def imagens():
+    #Imagens de séries de TV
+    url = "https://api.themoviedb.org/3/trending/tv/day?language=en-US"
+
+    headers = {
+        "accept": "application/json",
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmODZmNmQ2YzZkNTVhODJiNmY5MmU4NWE0ODc0MTljYyIsIm5iZiI6MTczMjc1Nzk5NS43NDA1MTIsInN1YiI6IjY3MmU5M2U4N2ZkNzI0MzQyYTkwMDNhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.K5n_n3wR4GdP2ZEbXkKfd4C5H_YQ8akZl7TTuG3HGoo"
+    }
+
+    response = requests.get(url, headers=headers)
     return jsonify(response.json())
 
 
