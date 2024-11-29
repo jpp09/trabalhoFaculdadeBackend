@@ -60,7 +60,7 @@ def login():
         index = cadastro_pessoas['usuario'].index(usuario)
         if senha == cadastro_pessoas['senha'][index]:
             return jsonify({'mensagem' : 'Login realizado com sucesso',
-            'log':f'{logado['user']}', 'link':'https://jpp09.github.io/trabalhoFaculdade/'})
+            'log':logado['user'], 'link':'https://jpp09.github.io/trabalhoFaculdade/'})
         else: 
             return jsonify({'mensagem': 'Senha incorreta', 'link':'https://jpp09.github.io/trabalhoFaculdade/login.html'})
     else:
